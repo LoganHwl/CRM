@@ -56,18 +56,10 @@ export default [
         ],
       },
 
-       // 新增測試頁面
-       {
+      // 新增測試頁面
+      {
         path: '/test',
         name: 'test',
-        routes: [
-          {
-            path: '/course/course-list',
-            name: 'course-list',
-            component: './CourseManager/CourseList',
-          },
-         
-        ],
       },
 
       // 音频管理
