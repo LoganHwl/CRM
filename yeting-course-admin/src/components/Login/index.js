@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Tabs, Row, Col, Input} from 'antd';
+import { Form, Tabs, Row, Col, Input } from 'antd';
 import classNames from 'classnames';
 import LoginItem from './LoginItem';
 import LoginTab from './LoginTab';
@@ -31,6 +31,7 @@ class Login extends Component {
       type: props.defaultActiveKey,
       tabs: [],
       active: {},
+      loginid: 'a',
     };
   }
 
@@ -83,24 +84,28 @@ class Login extends Component {
     });
   };
 
-  componentDidMount(){
+  componentDidMount() {
     const id = document.getElementById('login_container');
-    console.log(id)
-    const obj = new WxLogin({
-      id:`login_container`,//div的id
-      appid: "wx5acbeb3eda1f86c5",
-      scope: "snsapi_login",//写死
-      // redirect_uri:encodeURIComponent("https://" + window.location.host),
-      redirect_uri:'https://open.weixin.qq.com/connect/qrconnect?appid=wxbdc5610cc59c1631&redirect_uri=https%3A%2F%2Fpassport.yhd.com%2Fwechat%2Fcallback.do&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e#wechat_redirect' ,
-      state: "",
-      style: "black",//二维码黑白风格        
-      href: ""
-    });
-      console.log(obj)
+    console.log(id);
+    // const obj = new WxLogin({
+    //   id: this.state.loginid,//div的id
+    //   appid: "wx5acbeb3eda1f86c5",
+    //   scope: "snsapi_login",//写死
+    //   // redirect_uri:encodeURIComponent("https://" + window.location.host),
+    //   redirect_uri: 'https://open.weixin.qq.com/connect/qrconnect?appid=wxbdc5610cc59c1631&redirect_uri=https%3A%2F%2Fpassport.yhd.com%2Fwechat%2Fcallback.do&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e#wechat_redirect',
+    //   state: "",
+    //   style: "black",//二维码黑白风格
+    //   href: ""
+    // });
+    // console.log(obj)
   }
 
   render() {
-    const { className, children ,form: { getFieldDecorator },} = this.props;
+    const {
+      className,
+      children,
+      form: { getFieldDecorator },
+    } = this.props;
     const { type, tabs } = this.state;
     const TabChildren = [];
     const otherChildren = [];
@@ -119,18 +124,30 @@ class Login extends Component {
       <LoginContext.Provider value={this.getContext()}>
         <div className={classNames(className, styles.login)}>
           <Form onSubmit={this.handleSubmit}>
-          <FormItem>
-                    <Row gutter={8}>
-                      <Col span={16}>
-                        {getFieldDecorator('div')(
-                        <div id="login_container">234243</div>
-                        )}
-                      </Col>
-                      <Col span={8}>
-                      </Col>
-                    </Row>
-                  </FormItem>
-          
+            <FormItem>
+              {getFieldDecorator(this.state.loginid)(
+                <Row type="flex" justify="center" align="middle">
+                  <Col>
+                    <div id="a" onClick={() => this.setState({ loginid: 'a' })}>
+                      234243
+                    </div>
+                  </Col>
+                  <Col>
+                    {' '}
+                    <div id="b" onClick={() => this.setState({ loginid: 'b' })}>
+                      234243
+                    </div>
+                  </Col>
+                  <Col>
+                    {' '}
+                    <div id="c" onClick={() => this.setState({ loginid: 'c' })}>
+                      234243
+                    </div>
+                  </Col>
+                </Row>
+              )}
+            </FormItem>
+
             {tabs.length ? (
               <React.Fragment>
                 <Tabs
@@ -141,13 +158,13 @@ class Login extends Component {
                 >
                   {TabChildren}
                 </Tabs>
-                
+
                 {otherChildren}
               </React.Fragment>
             ) : (
               [...children]
             )}
-            <div id="login_container"></div>
+            {/* <div id="login_container"></div> */}
           </Form>
         </div>
       </LoginContext.Provider>

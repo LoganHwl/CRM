@@ -32,7 +32,7 @@ class OrderList extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.onSearch();
   }
 
@@ -44,6 +44,7 @@ class OrderList extends Component {
   }
 
   onSearch(page = 1) {
+    debugger;
     const { search, pageSize } = this.props;
 
     this.props.dispatch({

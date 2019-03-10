@@ -39,6 +39,7 @@ export default [
       {
         path: '/course',
         name: 'course',
+
         routes: [
           {
             path: '/course/course-list',
@@ -58,8 +59,17 @@ export default [
 
       // 新增測試頁面
       {
-        path: '/test',
-        name: 'test',
+        path: '/index',
+        name: 'index',
+        component: './Test/index',
+        breadcrumbName: '123',
+        routes: [
+          {
+            path: '/index/test_1',
+            name: 'test_1',
+            component: './Test/Children/test_1',
+          },
+        ],
       },
 
       // 音频管理
