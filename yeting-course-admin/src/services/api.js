@@ -192,10 +192,13 @@ export async function addChapterRef(params) {
     },
   });
 }
-
+// 动态获取菜单
+export async function queryMenu() {
+  return request('http://www.mocky.io/v2/5c6b04ad3300009f3c7f4e5a');
+}
 // 获取订单列表
 export async function getOrderList(params) {
-  debugger;
+  // debugger;
   return request(`/order/page?${stringify(params)}`);
 }
 

@@ -33,7 +33,7 @@ export default {
   'menu.resource': 'FM资源管理',
   'menu.resource.album-manager': '专辑管理',
   'menu.resource.sort-manager': '分类管理',
-  'menu.order': '订单管理',
+  'menu.order': '客户资料管理',
   'menu.order.order-list': '订单列表',
   'menu.live-code': '活码管理',
   'menu.live-code.live-code-list': '活码列表',

@@ -18,10 +18,14 @@ import Header from './Header';
 import Context from './MenuContext';
 import Exception403 from '../pages/Exception/403';
 
+import Media from 'react-media';
+import { menu, title } from '../defaultSettings';
+
 const { Content } = Layout;
 
 // Conversion router to menu.
 function formatter(data, parentPath = '', parentAuthority, parentName) {
+  console.log(parentName);
   return data.map(item => {
     let locale = 'menu';
     if (parentName && item.name) {
@@ -36,6 +40,7 @@ function formatter(data, parentPath = '', parentAuthority, parentName) {
       locale,
       authority: item.authority || parentAuthority,
     };
+    console.log(item.routes);
     if (item.routes) {
       const children = formatter(item.routes, `${parentPath}${item.path}/`, item.authority, locale);
       // Reduce memory usage
@@ -86,12 +91,22 @@ class BasicLayout extends React.PureComponent {
   };
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const {
+      dispatch,
+      route: { routes, authority },
+    } = this.props;
+
     /*
     dispatch({
       type: 'user/fetchCurrent',
     });
     */
+
+    // dispatch({
+    //   type: 'menu/getMenuData',
+    //   payload: { routes, authority },
+    // });
+    // debugger
     dispatch({
       type: 'setting/getSetting',
     });
@@ -171,13 +186,13 @@ class BasicLayout extends React.PureComponent {
     const currRouterData = this.matchParamsPath(pathname);
 
     if (!currRouterData) {
-      return '';
+      return title;
     }
     const message = formatMessage({
       id: currRouterData.locale || currRouterData.name,
       defaultMessage: currRouterData.name,
     });
-    return `${message}`;
+    return `${message} - ${title}`;
   };
 
   getLayoutStyle = () => {
@@ -280,8 +295,17 @@ class BasicLayout extends React.PureComponent {
   }
 }
 
+// export default connect(({ global, setting }) => ({
+//   collapsed: global.collapsed,
+//   layout: setting.layout,
+//   ...setting,
+// }))(BasicLayout);
 export default connect(({ global, setting }) => ({
   collapsed: global.collapsed,
   layout: setting.layout,
   ...setting,
-}))(BasicLayout);
+}))(props => (
+  <Media query="(max-width: 599px)">
+    {isMobile => <BasicLayout {...props} isMobile={isMobile} />}
+  </Media>
+));

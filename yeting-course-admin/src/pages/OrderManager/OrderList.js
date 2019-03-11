@@ -44,7 +44,7 @@ class OrderList extends Component {
   }
 
   onSearch(page = 1) {
-    debugger;
+    // debugger;
     const { search, pageSize } = this.props;
 
     this.props.dispatch({
@@ -169,7 +169,7 @@ class OrderList extends Component {
 
     const columns = [
       {
-        title: '订单号',
+        title: '客户姓名',
         width: 120,
         key: 'orderno',
         dataIndex: 'orderno',
